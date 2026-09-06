@@ -1,6 +1,6 @@
 # To-Do API
 
-API REST de to-do em Python com FastAPI, PostgreSQL e migrations Alembic. Pronta para deploy no Railway.
+API REST de to-do em Python com FastAPI, PostgreSQL e migrations Alembic, com interface web para CRUD. Pronta para deploy no Railway.
 
 ## Stack
 
@@ -10,6 +10,7 @@ API REST de to-do em Python com FastAPI, PostgreSQL e migrations Alembic. Pronta
 - PostgreSQL
 - psycopg 3
 - uvicorn
+- Jinja2 + HTMX (UI)
 
 ## Setup local
 
@@ -36,19 +37,24 @@ cp .env.example .env
 alembic upgrade head
 ```
 
-### 4. Rodar a API
+### 4. Rodar a aplicação
 
 ```bash
 uvicorn app.main:app --reload --port 8000
 ```
 
+- UI: http://localhost:8000/ui (também em `/`)
 - Swagger: http://localhost:8000/docs
 - Health: http://localhost:8000/health
+
+A UI em `/ui` cobre criar, listar, filtrar, editar, concluir/reabrir e excluir to-dos. A API JSON em `/todos` continua disponível para clientes programáticos.
 
 ## Endpoints
 
 | Método | Rota | Descrição |
 |--------|------|-----------|
+| `GET` | `/` | Redirect para `/ui` |
+| `GET` | `/ui` | Interface gráfica de CRUD |
 | `POST` | `/todos` | Criar to-do |
 | `GET` | `/todos` | Listar (`?completed=true\|false` opcional) |
 | `GET` | `/todos/{id}` | Buscar por id |
@@ -110,7 +116,11 @@ app/
   models/
   schemas/
   routers/
+    todos.py
+    ui.py
   crud/
+  templates/
+  static/
 alembic/
   versions/
 scripts/start.sh

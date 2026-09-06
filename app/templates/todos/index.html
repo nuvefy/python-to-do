@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Nuvefy To-Do{% endblock %}
+
+{% block content %}
+  <h1 class="brand">Nuvefy To-Do</h1>
+  <p class="tagline">Organize tarefas com create, edit, conclude e delete.</p>
+
+  <section class="panel" aria-labelledby="create-heading">
+    <h2 id="create-heading" class="panel-title">Nova tarefa</h2>
+    <form
+      hx-post="/ui/todos"
+      hx-target="#todo-list"
+      hx-swap="afterbegin"
+      hx-on::after-request="if(event.detail.successful){ this.reset(); document.getElementById('empty-state')?.remove(); }"
+    >
+      <div class="field">
+        <label for="title">Título</label>
+        <input id="title" name="title" type="text" maxlength="200" required placeholder="Ex.: Revisar PR">
+      </div>
+      <div class="field">
+        <label for="description">Descrição</label>
+        <textarea id="description" name="description" placeholder="Detalhes opcionais"></textarea>
+      </div>
+      <div class="actions">
+        <button type="submit" class="btn btn-primary">Adicionar</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="panel" aria-labelledby="list-heading">
+    <h2 id="list-heading" class="panel-title">Tarefas</h2>
+    <nav class="filters" aria-label="Filtrar tarefas">
+      <a class="filter-link{% if filter is none %} is-active{% endif %}" href="/ui">Todas</a>
+      <a class="filter-link{% if filter is sameas false %} is-active{% endif %}" href="/ui?completed=false">Abertas</a>
+      <a class="filter-link{% if filter is sameas true %} is-active{% endif %}" href="/ui?completed=true">Concluídas</a>
+    </nav>
+    {% include "todos/_list.html" %}
+  </section>
+{% endblock %}

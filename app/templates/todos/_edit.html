@@ -1,0 +1,40 @@
+<li id="todo-{{ todo.id }}" class="todo-item">
+  <form
+    class="edit-form"
+    hx-post="/ui/todos/{{ todo.id }}"
+    hx-target="#todo-{{ todo.id }}"
+    hx-swap="outerHTML"
+  >
+    <div class="field">
+      <label for="edit-title-{{ todo.id }}">Título</label>
+      <input
+        id="edit-title-{{ todo.id }}"
+        name="title"
+        type="text"
+        maxlength="200"
+        required
+        value="{{ todo.title }}"
+      >
+    </div>
+    <div class="field">
+      <label for="edit-description-{{ todo.id }}">Descrição</label>
+      <textarea id="edit-description-{{ todo.id }}" name="description">{{ todo.description or "" }}</textarea>
+    </div>
+    <label class="field" style="flex-direction: row; align-items: center; gap: 0.5rem;">
+      <input type="checkbox" name="completed" value="true"{% if todo.completed %} checked{% endif %}>
+      <span style="text-transform: none; letter-spacing: 0; font-size: 1rem; color: var(--text);">Concluída</span>
+    </label>
+    <div class="actions">
+      <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+      <button
+        type="button"
+        class="btn btn-ghost btn-sm"
+        hx-get="/ui/todos/{{ todo.id }}"
+        hx-target="#todo-{{ todo.id }}"
+        hx-swap="outerHTML"
+      >
+        Cancelar
+      </button>
+    </div>
+  </form>
+</li>
