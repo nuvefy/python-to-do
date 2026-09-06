@@ -6,6 +6,9 @@
         <p class="todo-desc">{{ todo.description }}</p>
       {% endif %}
       <p class="todo-meta">
+        {% if todo.due_date %}
+          Data {{ todo.due_date.strftime("%d/%m/%Y") }} ·
+        {% endif %}
         {% if todo.completed %}Concluída{% else %}Aberta{% endif %}
         · atualizada {{ todo.updated_at.strftime("%d/%m/%Y %H:%M") }}
       </p>

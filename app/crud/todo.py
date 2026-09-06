@@ -11,6 +11,7 @@ def create_todo(db: Session, todo_in: TodoCreate) -> Todo:
     todo = Todo(
         title=todo_in.title,
         description=todo_in.description,
+        due_date=todo_in.due_date,
     )
     db.add(todo)
     db.commit()

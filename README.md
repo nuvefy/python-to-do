@@ -68,7 +68,7 @@ A UI em `/ui` cobre criar, listar, filtrar, editar, concluir/reabrir e excluir t
 # Criar
 curl -X POST http://localhost:8000/todos \
   -H 'Content-Type: application/json' \
-  -d '{"title":"Comprar leite","description":"2 litros"}'
+  -d '{"title":"Comprar leite","description":"2 litros","due_date":"2026-09-10"}'
 
 # Listar
 curl http://localhost:8000/todos

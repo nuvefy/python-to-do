@@ -20,6 +20,15 @@
       <label for="edit-description-{{ todo.id }}">Descrição</label>
       <textarea id="edit-description-{{ todo.id }}" name="description">{{ todo.description or "" }}</textarea>
     </div>
+    <div class="field">
+      <label for="edit-due-date-{{ todo.id }}">Data</label>
+      <input
+        id="edit-due-date-{{ todo.id }}"
+        name="due_date"
+        type="date"
+        value="{{ todo.due_date.isoformat() if todo.due_date else '' }}"
+      >
+    </div>
     <label class="field" style="flex-direction: row; align-items: center; gap: 0.5rem;">
       <input type="checkbox" name="completed" value="true"{% if todo.completed %} checked{% endif %}>
       <span style="text-transform: none; letter-spacing: 0; font-size: 1rem; color: var(--text);">Concluída</span>
